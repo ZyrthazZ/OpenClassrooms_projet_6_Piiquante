@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend du projet 6 OpenClassrooms",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ZyrthazZ",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

@@ -1,1 +1,9 @@
 Pour démarrer le serveur sur la partie frontend, entrer "npm run start"
+
+Pour démarrer le server node sur la partie backend, entrer "nodemon server"
+
+
+Packages installées :   - nodemon (permet de mettre à jour le server node en direct, 
+                          sans avoir besoin d'éteindre et de rallumer le serveur)
+                        - express (framework basé sur node.js pour construire des applications web.
+                          framework standar pour la construction de serveur en Node.js )
