@@ -1,0 +1,1 @@
+Pour démarrer le serveur sur la partie frontend, entrer "npm run start"
