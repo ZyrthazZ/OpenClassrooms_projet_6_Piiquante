@@ -14,6 +14,11 @@ mongoose.connect('mongodb+srv://zyrthazz:project6@zyrthazzcluster.kg1mj.mongodb.
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
+
+const saucesRoutes = require('./routes/sauces');
+
+app.use(saucesRoutes);
+
 //Middleware gérant les problèmes de CORS (Cross Origin Resource Sharing)
 app.use((req, res, next) => {
     //Accepte les requêtes depuis n'importe quelle origine
@@ -26,12 +31,6 @@ app.use((req, res, next) => {
 });
 
 
-//Réponse simple pour savoir si le serveur répond bien 
-app.use((req, res, next) => {
-    res.json({
-        message: "Votre requête a bien été reçue !"
-    });
-});
 
 
 
