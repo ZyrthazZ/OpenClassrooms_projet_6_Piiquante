@@ -1,2 +1,4 @@
-- Gérer les erreurs de CORS 
-- Créer une base de données avec MongoDB
+- Créer un schéma de données pour les user
+- Créer un schéma de données pour les sauces
+
+Organiser le  code avec des routers et des controllers

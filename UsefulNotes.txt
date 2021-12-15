@@ -7,3 +7,7 @@ Packages installées :   - nodemon (permet de mettre à jour le server node en d
                           sans avoir besoin d'éteindre et de rallumer le serveur)
                         - express (framework basé sur node.js pour construire des applications web.
                           framework standar pour la construction de serveur en Node.js )
+                        - mongoose (package facilitant l'utilisation de la base de données MongoDB : 
+                          permet de valider le format des données, gérer les relations entre les documents, 
+                          communiquer directement avec la base de données pour la lecture et l'écriture
+                          des documents)
