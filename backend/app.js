@@ -1,10 +1,10 @@
-//Appel le framework express
+//Appelle le framework express
 const express = require('express');
 
-//Permet de créer une application express
-const app = express();
+//const saucesRoutes = require('./routes/sauces');
+const authRoutes = require('./routes/auth');
 
-//Appel le package mongoose et connecte l'app à la base de données MongoDB
+//Appelle le package mongoose et connecte l'app à la base de données MongoDB
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://zyrthazz:project6@zyrthazzcluster.kg1mj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
         useNewUrlParser: true,
@@ -13,11 +13,10 @@ mongoose.connect('mongodb+srv://zyrthazz:project6@zyrthazzcluster.kg1mj.mongodb.
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-
-
-const saucesRoutes = require('./routes/sauces');
-
-app.use(saucesRoutes);
+//Permet de créer une application express
+const app = express();
+//Appel de la fonction "bodyparser" d'express, transformant les requêtes en string
+app.use(express.json());
 
 //Middleware gérant les problèmes de CORS (Cross Origin Resource Sharing)
 app.use((req, res, next) => {
@@ -30,10 +29,8 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
-
-
+//app.use(saucesRoutes);
+app.use('/api/auth', authRoutes);
 
 
 //Exporte l'application pour qu'elle soit utilisable par les autres fichiers

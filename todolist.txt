@@ -1,4 +1,5 @@
-- Créer un schéma de données pour les user
 - Créer un schéma de données pour les sauces
 
 Organiser le  code avec des routers et des controllers
+
+Sécuriser le token sur les connections
