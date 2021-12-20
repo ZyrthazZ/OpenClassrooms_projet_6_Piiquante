@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt');
 //Appel du modèle User (schema mongoose)
 const User = require('../models/User');
 
+//Appel du package jsonwebtoken 
+const jwt = require('jsonwebtoken');
+
 //Fonction signup appellée lors de l'inscription d'un user (utilisée dans routes/auth.js)
 exports.signup = (req, res) => {
     //Fonction hash de bcrypt, utilisée 10 fois sur le password
@@ -56,7 +59,14 @@ exports.login = (req, res, next) => {
                     //et un TOKEN de sécurité
                     res.status(200).json({
                         userId: user._id,
-                        token: 'TOKEN'
+                        //La fonction sign de jsonwebtoken va encoder un nouveau token
+                        token: jwt.sign({
+                                userId: user._id
+                            },
+                            'RANDOM_SECRET_KEY', {
+                                expiresIn: '24h'
+                            }
+                        )
                     });
                 })
                 .catch(error => res.status(500).json({
@@ -67,3 +77,4 @@ exports.login = (req, res, next) => {
             error
         }));
 };
+

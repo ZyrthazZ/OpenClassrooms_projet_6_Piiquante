@@ -2,4 +2,4 @@
 
 Organiser le  code avec des routers et des controllers
 
-Sécuriser le token sur les connections
+Sécuriser le token sur les connexions
