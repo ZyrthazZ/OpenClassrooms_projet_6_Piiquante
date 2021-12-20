@@ -2,7 +2,7 @@
 const express = require('express');
 
 //const saucesRoutes = require('./routes/sauces');
-const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 //Appelle le package mongoose et connecte l'app à la base de données MongoDB
 const mongoose = require('mongoose');
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 });
 
 //app.use(saucesRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', userRoutes);
 
 
 //Exporte l'application pour qu'elle soit utilisable par les autres fichiers
