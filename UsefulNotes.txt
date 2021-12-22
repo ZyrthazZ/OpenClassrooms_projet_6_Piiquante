@@ -15,3 +15,4 @@ Packages installées :   - nodemon (permet de mettre à jour le server node en d
                           pas d'erreur si deux utilisateurs utilisent la même adresse mail)
                         - bcrypt (package servant à "hacher" le mot de passe dans la base de données)
                         - jsonwebtoken (package permettant de créer et vérifier les tokens d'authentification)
+                        - multer (package permettant de gérer plus facilement l'utilisation d'images)
