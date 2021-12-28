@@ -8,7 +8,7 @@ const userRoutes = require('./routes/user');
 
 //Appelle le package mongoose et connecte l'app à la base de données MongoDB
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://zyrthazz:project6@zyrthazzcluster.kg1mj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://zyrthazz:project6@project6databasecluster.ntwb4.mongodb.net/project6databasecluster?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
