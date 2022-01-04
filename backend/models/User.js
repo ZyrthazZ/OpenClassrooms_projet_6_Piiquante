@@ -1,5 +1,6 @@
 //Appelle le package mongoose
 const mongoose = require('mongoose');
+
 //Appelle le package mongoose-unique-validator pour prévenir les erreurs 
 //lorsque deux utilisateurs utilisent la même adresse email
 const uniqueValidator = require('mongoose-unique-validator');

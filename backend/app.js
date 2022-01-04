@@ -1,10 +1,10 @@
 //Appelle le framework express
 const express = require('express');
 
-
-
 //const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
+
+const Sauce = require('./models/Sauce');
 
 //Appelle le package mongoose et connecte l'app à la base de données MongoDB
 const mongoose = require('mongoose');
@@ -42,6 +42,27 @@ app.use('images/', express.static(path.join(__dirname, 'images')));
 //app.use(saucesRoutes);
 app.use('/api/auth', userRoutes);
 
+app.post('/api/sauces', (req, res, next) => {
+    const sauce = new Sauce({
+        ...req.body
+    });
+    sauce.save()
+        .then(() => res.status(201).json({
+            message: "Nouvelle sauce enregistrée !"
+        }))
+        .catch(error => res.status(400).json({
+            error
+        }));
+});
+
+//Middleware pour récupérer la liste des sauces
+app.get('/api/sauces', (req, res, next) => {
+    Sauce.find()
+        .then(sauces => res.status(200).json(sauces))
+        .catch(error => res.status(400).json({
+            error
+        }));
+});
 
 //Exporte l'application pour qu'elle soit utilisable par les autres fichiers
 module.exports = app;

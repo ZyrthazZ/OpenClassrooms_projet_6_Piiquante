@@ -1,4 +1,5 @@
-- Créer un schéma de données pour les sauces
+- Ajouter la logique multer aux sauces pour gérer les images
+- Sécuriser les routes avec auth 
 
 Organiser le  code avec des routers et des controllers
 
