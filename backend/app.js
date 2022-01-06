@@ -39,9 +39,16 @@ app.use((req, res, next) => {
 //vers la route /images
 app.use('images/', express.static(path.join(__dirname, 'images')));
 
-//app.use(saucesRoutes);
+
+//Gère la userRoutes, qui appelle la route user.js qui appelle le controller user.js
 app.use('/api/auth', userRoutes);
 
+//Gère la saucesRoutes, qui appelle la route sauces.js qui appelle le controller sauces.js
+//app.use('/api/sauces', saucesRoutes);
+
+
+
+//Middleware pour créer une nouvelle sauce
 app.post('/api/sauces', (req, res, next) => {
     const sauce = new Sauce({
         ...req.body

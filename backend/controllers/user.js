@@ -7,7 +7,7 @@ const User = require('../models/User');
 //Appel du package jsonwebtoken 
 const jwt = require('jsonwebtoken');
 
-//Fonction signup appellée lors de l'inscription d'un user (utilisée dans routes/auth.js)
+//Fonction signup appellée lors de l'inscription d'un user (utilisée dans routes/user.js)
 exports.signup = (req, res) => {
     //Fonction hash de bcrypt, utilisée 10 fois sur le password
     bcrypt.hash(req.body.password, 10)
@@ -32,7 +32,7 @@ exports.signup = (req, res) => {
 };
 
 
-//Fonction login appelée lors de la connection d'un user (utilisée dans routes/auth.js)
+//Fonction login appelée lors de la connection d'un user (utilisée dans routes/user.js)
 exports.login = (req, res, next) => {
     //Fonction findOne utilisée pour vérifier que le user existe dans User
     User.findOne({
