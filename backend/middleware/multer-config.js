@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
         //pour éviter de potentiels problèmes ou erreurs
         const name = file.originalname.split(' ').join('_');
         //Appel du dictionnaire pour gérer les extensions 
-        const extension = MIME_TYPES(file.mimetype);
+        const extension = MIME_TYPES[file.mimetype];
         //Création du nom de fichier : null pour indiquer qu'il n'y a pas d'erreur, on ajoute le nom du fichier, *
         //puis un timestamp pour l'heure à laquelle il est créé, puis un point '.', puis l'extension du fichier
         callback(null, name + Date.now() + '.' + extension);

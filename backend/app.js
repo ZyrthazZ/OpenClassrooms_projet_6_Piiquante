@@ -1,8 +1,8 @@
 //Appelle le framework express
 const express = require('express');
 
-//const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
+const saucesRoutes = require('./routes/sauces');
 
 const Sauce = require('./models/Sauce');
 
@@ -37,17 +37,17 @@ app.use((req, res, next) => {
 
 //Indique à express de gérer les images de manière statique dès qu'elle recoit une requête *
 //vers la route /images
-app.use('images/', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 
 //Gère la userRoutes, qui appelle la route user.js qui appelle le controller user.js
 app.use('/api/auth', userRoutes);
 
 //Gère la saucesRoutes, qui appelle la route sauces.js qui appelle le controller sauces.js
-//app.use('/api/sauces', saucesRoutes);
+app.use('/api/sauces', saucesRoutes);
 
 
-
+/*
 //Middleware pour créer une nouvelle sauce
 app.post('/api/sauces', (req, res, next) => {
     const sauce = new Sauce({
@@ -61,7 +61,7 @@ app.post('/api/sauces', (req, res, next) => {
             error
         }));
 });
-
+*/
 //Middleware pour récupérer la liste des sauces
 app.get('/api/sauces', (req, res, next) => {
     Sauce.find()
