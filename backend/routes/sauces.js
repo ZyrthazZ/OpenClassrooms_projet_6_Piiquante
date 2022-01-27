@@ -14,9 +14,9 @@ const multer = require ('../middleware/multer-config');
 
 //Router permettant de créer une sauce
 router.post('/', auth, multer, saucesController.createSauce);
-/*
+
 //Router permettant de modifier une sauce
-router.put('/:id', auth, saucesController.modifySauce);
+router.put('/:id', auth, multer, saucesController.modifySauce);
 
 //Router permettant de supprimer une sauce
 router.delete('/:id', auth, saucesController.deleteSauce);
@@ -27,5 +27,5 @@ router.get('/:id', auth, saucesController.getOneSauce);
 //Router permettant de récupérer toutes les sauces
 router.get('/', auth, saucesController.getAllSauces);
 
-*/
+
 module.exports = router;

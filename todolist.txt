@@ -1,6 +1,1 @@
-- Ajouter la logique multer aux sauces pour gérer les images
-- Sécuriser les routes avec auth 
-
-Organiser le  code avec des routers et des controllers
-
-Sécuriser le token sur les connexions
+Ajouter une route post pour gérer les likes / dislikes 

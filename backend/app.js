@@ -61,7 +61,7 @@ app.post('/api/sauces', (req, res, next) => {
             error
         }));
 });
-*/
+
 //Middleware pour récupérer la liste des sauces
 app.get('/api/sauces', (req, res, next) => {
     Sauce.find()
@@ -70,6 +70,6 @@ app.get('/api/sauces', (req, res, next) => {
             error
         }));
 });
-
+*/
 //Exporte l'application pour qu'elle soit utilisable par les autres fichiers
 module.exports = app;
