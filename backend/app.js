@@ -47,29 +47,5 @@ app.use('/api/auth', userRoutes);
 app.use('/api/sauces', saucesRoutes);
 
 
-/*
-//Middleware pour créer une nouvelle sauce
-app.post('/api/sauces', (req, res, next) => {
-    const sauce = new Sauce({
-        ...req.body
-    });
-    sauce.save()
-        .then(() => res.status(201).json({
-            message: "Nouvelle sauce enregistrée !"
-        }))
-        .catch(error => res.status(400).json({
-            error
-        }));
-});
-
-//Middleware pour récupérer la liste des sauces
-app.get('/api/sauces', (req, res, next) => {
-    Sauce.find()
-        .then(sauces => res.status(200).json(sauces))
-        .catch(error => res.status(400).json({
-            error
-        }));
-});
-*/
 //Exporte l'application pour qu'elle soit utilisable par les autres fichiers
 module.exports = app;

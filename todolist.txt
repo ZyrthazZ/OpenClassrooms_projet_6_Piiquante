@@ -1,1 +1,1 @@
-Ajouter une route post pour gérer les likes / dislikes 
+Review de code du projet avant passage en prod et documentation

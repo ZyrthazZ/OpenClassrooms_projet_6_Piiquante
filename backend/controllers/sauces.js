@@ -107,3 +107,128 @@ exports.getAllSauces = (req, res, next) => {
             error
         }));
 };
+
+
+//Logique utilisée pour liker ou disliker les sauces dans routes.sauces.js
+exports.likeOrDislike = (req, res, next) => {
+    //Si on like la sauce
+    if (req.body.like === 1) {
+        //On utilise la méthode updateOne sur la Sauce
+        Sauce.updateOne({
+                //On y ajoute l'id de la sauce
+                _id: req.params.id
+            }, {
+                //On incrémente (fonction de MongoDB) directement dans l'array
+                $inc: {
+                    //On incrémente de +1
+                    likes: 1
+                },
+                //On va pusher (ajouter ,fonction de MongoDB) directement dans l'array
+                $push: {
+                    //On push l'userId
+                    usersLiked: req.body.userId
+                }
+            })
+            //Envoie une requête réussie
+            .then(() => res.status(201).json({
+                message: "Sauce likée !"
+            }))
+            //Renvoie une erreur
+            .catch(error => res.status(400).json({
+                error
+            }));
+    }
+
+    //Si on dislike la sauce
+    if (req.body.like === -1) {
+        //On utilise la méthode updateOne sur la Sauce
+        Sauce.updateOne({
+                //On y ajoute l'id de la sauce
+                _id: req.params.id
+            }, {
+                //On incrémente (fonction de MongoDB) directement dans l'array
+                $inc: {
+                    //On incrémente de +1
+                    dislikes: 1
+                },
+                //On va pusher (ajouter, fonction de MongoDB) directement dans l'array
+                $push: {
+                    //On push l'userId
+                    usersDisliked: req.body.userId
+                }
+            })
+            //Envoie une requête réussie
+            .then(() => res.status(201).json({
+                message: "Sauce dislikée !"
+            }))
+            //Renvoie une erreur
+            .catch(error => res.status(400).json({
+                error
+            }));
+    }
+
+    //On va vérifier si l'utilisateur a déjà liké ou disliké la sauce pour qu'il ne puisse pas le faire 2 fois
+    if (req.body.like === 0) {
+        //On va trouver la sauce avec findOne
+        Sauce.findOne({
+                _id: req.params.id
+            })
+            .then((sauce) => {
+                //Vérifie dans le tableau usersLiked si il contient le userId avec la méthode includes qui renvoie true *
+                //si il le contient
+                if (sauce.usersLiked.includes(req.body.userId)) {
+                    //On utilise la méthode updateOne sur la Sauce
+                    Sauce.updateOne({
+                            _id: req.params.id
+                        }, {
+                            //On incrémente (fonction de MongoDB) directement dans l'array
+                            $inc: {
+                                //On incrémente de -1
+                                likes: -1
+                            },
+                            //On va puller (retirer, fonction de MongoDB) directement dans l'array
+                            $pull: {
+                                //On pull l'userId
+                                usersLiked: req.body.userId
+                            }
+                        })
+                        //Envoie une requête réussie
+                        .then(() => res.status(200).json({
+                            message: "Le like a été annulé !"
+                        }))
+                        //Renvoie une erreur
+                        .catch(error => res.status(400).json({
+                            error
+                        }));
+                }
+                //Vérifie dans le tableau usersDisliked si il contient le userId avec la méthode includes qui renvoie true *
+                //si il le contient
+                if (sauce.usersDisliked.includes(req.body.userId)) {
+                    //On utilise la méthode updateOne sur la Sauce
+                    Sauce.updateOne({
+                            _id: req.params.id
+                        }, {
+                            //On incrémente (fonction de MongoDB) directement dans l'array
+                            $inc: {
+                                //On incrémente de -1
+                                dislikes: -1
+                            },
+                            //On va puller (retirer, fonction de MongoDB) directement dans l'array
+                            $pull: {
+                                //On pull l'userId
+                                usersDisliked: req.body.userId
+                            }
+                        })
+                        //Envoie une requête réussie
+                        .then(() => res.status(200).json({
+                            message: "Le dislike a été annulé !"
+                        }))
+                        //Renvoie une erreur
+                        .catch(error => res.status(400).json({
+                            error
+                        }));
+                }
+            })
+    }
+};
+
