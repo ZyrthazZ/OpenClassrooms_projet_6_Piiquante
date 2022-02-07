@@ -1,1 +1,3 @@
 Review de code du projet avant passage en prod et documentation
+
+MAJ les packages avant présentation du projet.
