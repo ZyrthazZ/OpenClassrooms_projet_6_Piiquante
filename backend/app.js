@@ -27,7 +27,8 @@ app.use(express.json());
 const helmet = require('helmet');
 //envoie le package helmet dans l'application, ce qui va corriger beaucoup de failles de sécurité (plus de détails dans UsefulNotes.txt)
 app.use(helmet());
-
+//autorise les utilisations de ressources en "cross-origin"
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 //appelle le package cookie-session
 const session = require('cookie-session');
 

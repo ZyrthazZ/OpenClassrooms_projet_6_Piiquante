@@ -20,6 +20,8 @@ Packages installées :   - nodemon (permet de mettre à jour le server node en d
                           afin de vérifier la validité d'un mot de passe à la création de celui-ci)
                         - helmet (package de sécurité, contenant plusieurs packages : 
                                                                                       - csp : définit l’en-tête Content-Security-Policy pour la protection contre les attaques de type cross-site scripting et autres injections intersites
+                                                                                        (/!\Un bug est survenu à cause de crossOriginResourcePolicy qui était réglé sur same-site, ce 
+                                                                                        qui empêchait l'affichage des images)
                                                                                       - hidePoweredBy : supprime l’en-tête X-Powered-By
                                                                                       - hsts : définit l’en-tête Strict-Transport-Security qui impose des connexions (HTTP sur SSL/TLS) sécurisées au serveur
                                                                                       - ieNoOpen : définit X-Download-Options pour IE8+
