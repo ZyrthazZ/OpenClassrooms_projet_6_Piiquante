@@ -56,7 +56,7 @@ exports.login = (req, res, next) => {
                         });
                     }
                     //Si le mot de passe correspond, envoie une réponse contenant l'ID utilisateur
-                    //et un TOKEN de sécurité
+                    //et un TOKEN de sécurité qui va permettre de vérfier que la requête est authentifiée
                     res.status(200).json({
                         userId: user._id,
                         //La fonction sign de jsonwebtoken va encoder un nouveau token

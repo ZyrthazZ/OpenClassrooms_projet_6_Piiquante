@@ -5,8 +5,7 @@ const express = require('express');
 const userRoutes = require('./routes/user');
 //appelle la route sauce
 const saucesRoutes = require('./routes/sauces');
-//appelle le model Sauce
-const Sauce = require('./models/Sauce');
+
 
 //Appelle le package mongoose et connecte l'app à la base de données MongoDB
 const mongoose = require('mongoose');
@@ -28,7 +27,9 @@ const helmet = require('helmet');
 //envoie le package helmet dans l'application, ce qui va corriger beaucoup de failles de sécurité (plus de détails dans UsefulNotes.txt)
 app.use(helmet());
 //autorise les utilisations de ressources en "cross-origin"
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(helmet.crossOriginResourcePolicy({
+    policy: "cross-origin"
+}));
 //appelle le package cookie-session
 const session = require('cookie-session');
 
@@ -40,8 +41,9 @@ app.use(session({
     //keys : 
     keys: ['key1', 'key2'],
     cookie: {
-        secure: true, 
-        httpOnly: true, 
+        secure: true,
+        //En httpOnly, les cookies sont uniquement envoyés au serveur, donc plus sécurisés
+        httpOnly: true,
         domain: 'https://localhost:3000',
         expires: expireTime
     }

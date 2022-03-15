@@ -6,15 +6,16 @@ module.exports = (req, res, next) => {
     try {
         //Récupère dans authorization tout ce qui vient après l'espace, donc après "bearer"
         const token = req.headers.authorization.split(' ')[1];
-        //Utilisation de la fonction verify de jwt qui va décoder le token et renvoyer une erreur en cas 
-        //de non validité
+        //On décode le token grâce à verify de jwt en vérifiant qu'il corresponde
+        //à la clef secrète présente la fonction login
         const decodedToken = jwt.verify(token, 'RANDOM_SECRET_KEY');
         //On extraie l'ID utilisateur du token
         const userId = decodedToken.userId;
-        //Si le userId du corps de la requête et qu'il diffère du userId, renvoie une erreur
+        //Si on a un userId dans le corps de la requête et que celui-ci diffère du userId extrait, 
+        //on retourne une erreur
         if (req.body.userId && req.body.userId !== userId) {
             throw "Invalid user ID";
-        //Si on arrive au else, c'est que tout s'est bien passé
+            //Si on arrive au else, c'est que tout s'est bien passé
         } else {
             next();
         }
