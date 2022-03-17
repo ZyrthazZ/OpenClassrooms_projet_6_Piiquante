@@ -1,6 +1,13 @@
 //Appelle le framework express
 const express = require('express');
 
+//Appelle le package dotenv
+const dotenv = require('dotenv');
+//Indique le chemin du fichier .env
+dotenv.config({
+    path: "app.env"
+});
+
 //appelle la route user
 const userRoutes = require('./routes/user');
 //appelle la route sauce
@@ -9,12 +16,16 @@ const saucesRoutes = require('./routes/sauces');
 
 //Appelle le package mongoose et connecte l'app à la base de données MongoDB
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://zyrthazz:project6@project6databasecluster.ntwb4.mongodb.net/project6databasecluster?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
+
+mongoose.connect(
+        //Va chercher dans le fichier .env la variable qui nous intéresse
+        process.env.MONGOOSE_CONNECT, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
+
 
 //Permet de créer une application express
 const app = express();

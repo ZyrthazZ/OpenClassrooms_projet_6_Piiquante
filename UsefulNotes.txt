@@ -5,6 +5,8 @@ Pour démarrer le server node sur la partie backend, entrer "nodemon server"
 
 Packages installées :   - nodemon (permet de mettre à jour le server node en direct, 
                           sans avoir besoin d'éteindre et de rallumer le serveur)
+                        - dotenv (permet d'utiliser et de récupérer des variables stockées dans des fichiers .env 
+                          pour sécuriser l'environnement de notre application)
                         - express (framework basé sur node.js pour construire des applications web.
                           framework standard pour la construction de serveur en Node.js )
                         - mongoose (package facilitant l'utilisation de la base de données MongoDB : 
@@ -16,6 +18,7 @@ Packages installées :   - nodemon (permet de mettre à jour le server node en d
                         - bcrypt (package servant à "hacher" le mot de passe dans la base de données)
                         - jsonwebtoken (package permettant de créer et vérifier les tokens d'authentification)
                         - multer (package permettant de gérer plus facilement l'utilisation d'images)
+                        - email-validator (package permettant de vérifier qu'un email est au bon format)
                         - password-validator (package permettant de configurer un schéma de mot de passe à sa guide 
                           afin de vérifier la validité d'un mot de passe à la création de celui-ci)
                         - helmet (package de sécurité, contenant plusieurs packages : 

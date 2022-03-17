@@ -15,7 +15,8 @@ const normalizePort = val => {
     }
     return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+//Va chercher le PORT dans le fichier .env
+const port = process.env.PORT;
 app.set('port', port);
 
 //Cherche les différentes erreurs et les gère de manière appropriée
