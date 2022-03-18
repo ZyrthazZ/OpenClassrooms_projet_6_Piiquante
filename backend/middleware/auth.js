@@ -1,5 +1,7 @@
 //Appel du package jsonwebtoken
 const jwt = require('jsonwebtoken');
+//Appel du model Sauce
+const Sauce = require('../models/Sauce');
 
 //Ce middleware va essayer de sécuriser les requêtes
 module.exports = (req, res, next) => {
@@ -11,12 +13,15 @@ module.exports = (req, res, next) => {
         const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
         //On extraie l'ID utilisateur du token
         const userId = decodedToken.userId;
-        //Si on a un userId dans le corps de la requête et que celui-ci diffère du userId extrait, 
-        //on retourne une erreur
-        if (req.body.userId && req.body.userId !== userId) {
+        //On vérifie si une sauce contient un userId égal à celui extrait du token
+        var checkUserId = Sauce.findOne({
+            userId: userId
+        });
+        //On vérifie qu'on a un userId dans l'objet checkUserId et qu'il diffère du userId extrait du token
+        if (checkUserId.userId && checkUserId.userId !== userId) { // User login is not user that owns post
             throw "Invalid user ID";
-            //Si on arrive au else, c'est que tout s'est bien passé
-        } else {
+        } else { // User login is user that owns post
+            console.log("req.params.id", req.params.id)
             next();
         }
     } catch {

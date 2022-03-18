@@ -34,7 +34,7 @@ exports.createSauce = (req, res, next) => {
 };
 
 //Logique utilisée pour la modification d'une sauce dans routes/sauces.js 
-exports.modifySauce = (req, res, next) => {
+exports.modifySauce = async (req, res, next) => {
     /*On remet la même logique que dans le middleware d'authentification 
     pour récupérer le userId qui est dans le token*/
 
@@ -45,18 +45,15 @@ exports.modifySauce = (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
     //On extraie l'ID utilisateur du token
     const userId = decodedToken.userId;
-    //On cherche à vérifier grâce à findOne() si on trouve une sauce ayant le même 
-    //userId que celui extrait du token
-    var checkUserId = Sauce.findOne({
-        where: {
-            userId: userId
-        }
+
+    //On va chercher la sauce que l'on veut avec le req.params.id en asynchrone pour 
+    //pouvoir utiliser les données récupérées
+    var searchedSauce = await Sauce.findOne({
+        _id: req.params.id
     });
 
-    console.log("checkUserId", checkUserId);
-
-    //Si if(checkUserId) renvoie true alors on peut modifier la sauce 
-    if (checkUserId) {
+    //Si if(searchedSauce.userId === userId) renvoie true alors on peut modifier la sauce 
+    if (searchedSauce.userId === userId) {
         //Vérifie si l'on trouve un fichier ou non (correspondant ici à l'image)
         const sauceObject = req.file ?
             //Si on trouve un fichier
@@ -87,6 +84,7 @@ exports.modifySauce = (req, res, next) => {
                 error
             }));
     } else {
+        console.log("erreur")
         res.status(401).json({
             error: new Error("Invalid request !")
         });
@@ -95,46 +93,20 @@ exports.modifySauce = (req, res, next) => {
 
 //Logique utilisée pour la suppression d'une sauce dans routes/sauces.js
 exports.deleteSauce = (req, res, next) => {
-    /*On remet la même logique que dans le middleware d'authentification 
-    pour récupérer le userId qui est dans le token*/
+    //Utilise la méthode deleteOne() pour supprimer la sauce correspondant à *
+    //l'id de la requête dans la base de données
+    Sauce.deleteOne({
+            _id: req.params.id
+        })
+        //Envoie une requête réussie
+        .then(() => res.status(200).json({
+            message: "Sauce supprimée !"
+        }))
+        //Indique une erreur
+        .catch(error => res.status(400).json({
+            error
+        }));
 
-    //Récupère dans authorization tout ce qui vient après l'espace, donc après "bearer"
-    const token = req.headers.authorization.split(' ')[1];
-    //On décode le token grâce à verify de jwt en vérifiant qu'il corresponde
-    //à la clef secrète présente la fonction login
-    const decodedToken = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
-    //On extraie l'ID utilisateur du token
-    const userId = decodedToken.userId;
-    //On cherche à vérifier grâce à findOne() si on trouve une sauce ayant le même 
-    //userId que celui extrait du token
-    var checkUserId = Sauce.findOne({
-        where: {
-            userId: userId
-        }
-    });
-
-    console.log("checkUserId", checkUserId);
-
-    //Si if(checkUserId) renvoie true alors on peut modifier la sauce 
-    if (checkUserId) {
-        //Utilise la méthode deleteOne() pour supprimer la sauce correspondant à *
-        //l'id de la requête dans la base de données
-        Sauce.deleteOne({
-                _id: req.params.id
-            })
-            //Envoie une requête réussie
-            .then(() => res.status(200).json({
-                message: "Sauce supprimée !"
-            }))
-            //Indique une erreur
-            .catch(error => res.status(400).json({
-                error
-            }));
-    } else {
-        res.status(401).json({
-            error: new Error("Invalid request !")
-        });
-    }
 };
 
 //Logique utilisée pour la récupération d'une sauce spécifique dans routes/sauces.js
